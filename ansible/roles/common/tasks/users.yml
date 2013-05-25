@@ -1,0 +1,9 @@
+---
+- name: Create group.
+  group: name=${group} system=no state=present
+
+- name: Create user.
+  user: name=${user} group=${group} shell=/bin/zsh state=present
+
+# - name: Create pip cache directory
+#   file: path=${home}/.pip-cache state=directory

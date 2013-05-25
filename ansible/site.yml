@@ -1,0 +1,10 @@
+---
+- hosts: all
+  user: '{{ initial_user }}'
+  sudo: yes
+  roles:
+    - common
+
+- include: dotfiles.yml
+- include: webservers.yml
+# - include: dbservers.yml

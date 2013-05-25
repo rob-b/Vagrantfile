@@ -1,0 +1,7 @@
+---
+
+- hosts: webservers
+  user: '{{ user }}'
+  sudo: yes
+  roles:
+    - web

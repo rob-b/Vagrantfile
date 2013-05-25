@@ -1,0 +1,15 @@
+---
+user: ubuntu
+group: admin
+home: /home/ubuntu
+
+project_name: eighteen
+nginx_cache_name: eighteen-cache
+uwsgi_upstream: eighteen
+config_path: /srv/eighteen
+bin: /home/ubuntu/.virtualenvs/eighteen/bin
+virtualenv_path: /home/ubuntu/.virtualenvs/eighteen
+
+database_name: eighteen
+
+initial_user: ubuntu

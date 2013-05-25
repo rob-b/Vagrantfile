@@ -1,0 +1,17 @@
+---
+- hosts: webservers
+  connection: ssh
+  sudo: yes
+  tasks:
+    - name: Set correct permisssions
+      file: path=$home recurse=yes owner=$user group=$group state=directory
+
+- hosts: webservers
+  connection: ssh
+  user: '{{ user }}'
+  tasks:
+    - name: Clone dotfiles
+      git: repo=https://rob_b@bitbucket.org/rob_b/dotfiles.git dest=${home}/.dotfiles
+
+    - name: Install dotfiles
+      command: ${home}/.dotfiles/install-links.sh creates=${home}/.config/python/pythonrc.py

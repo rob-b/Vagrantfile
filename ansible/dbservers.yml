@@ -1,0 +1,20 @@
+---
+- hosts: dbservers
+  user: ubuntu
+  sudo: yes
+  roles:
+    - db
+  handlers:
+    - include: handlers/handlers.yml
+
+- hosts: dbservers
+  user: ubuntu
+  sudo: yes
+  sudo_user: postgres
+
+  tasks:
+    - name: Add postgres user
+      postgresql_user: user=$database_name password=$database_password
+
+    - name: Add postgres db
+      postgresql_db: db=$database_name owner=$database_name state=present encoding='UTF-8' template='template0' lc_collate='en_US.utf8' lc_ctype='en_US.utf8'

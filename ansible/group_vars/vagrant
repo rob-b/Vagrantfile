@@ -1,0 +1,6 @@
+---
+user: ubuntu
+group: admin
+initial_user: vagrant
+
+home: /home/ubuntu

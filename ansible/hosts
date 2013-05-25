@@ -1,0 +1,6 @@
+[webservers]
+127.0.0.1:2222
+
+[vagrant:children]
+webservers
+
