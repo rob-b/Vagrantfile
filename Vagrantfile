@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 80, host: 8080
   config.vm.network :forwarded_port, guest: 6543, host: 6543
   config.vm.network :private_network, ip: "192.168.33.10"
-  config.vm.synced_folder "..", "/vagrant"
+  config.vm.synced_folder "..", "/vagrant", nfs: true
   config.vm.provision :ansible do |ansible|
     ansible.playbook = "ansible/vagrant.yml"
     ansible.inventory_file = "ansible/hosts"
