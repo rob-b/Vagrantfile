@@ -13,9 +13,13 @@
     user: name=${user} group=${group} shell=/bin/zsh state=present
 
   - name: Copy vagrants insecure key over to new user
-    command: /bin/cp /home/vagrant/.ssh/authorized_keys $home/.ssh/authorized_keys
+    command: /bin/cp /home/vagrant/.ssh/authorized_keys $home/.ssh/authorized_keys creates=$home/.ssh/authorized_keys
   - file: path=$home/.ssh/ owner=$user group=$group mode=0700 state=directory
   - file: path=$home/.ssh/authorized_keys owner=$user group=$group mode=0600 state=file
+
+  - name: Add our key to vagrant's authorized_key file
+    action: authorized_key user=vagrant key='$FILE(id_rsa.pub)'
+  - action: authorized_key user=$user key='$FILE(id_rsa.pub)'
 
 # now call the actual, non-hacky playbooks
 - include: site.yml
