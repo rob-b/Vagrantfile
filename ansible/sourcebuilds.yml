@@ -1,0 +1,59 @@
+- hosts: webservers
+  connection: ssh
+  user: '{{ user }}'
+  tasks:
+    - file: path=${home}/packages state=directory owner=${user} group=${group} mode=755
+      tags:
+        - ag
+
+    - name: Install silver_searcher prerequisites
+      apt: pkg=$item state=latest install_recommends=no
+      with_items:
+        - automake
+        - pkg-config
+        - libpcre3-dev
+        - zlib1g-dev
+        - liblzma-dev
+      tags:
+        - ag
+
+    - name: Download silver_searcher
+      get_url: url=https://github.com/ggreer/the_silver_searcher/archive/0.15.tar.gz dest=${home}/packages/the_silver_searcher-0.15.tar.gz
+      tags:
+        - ag
+
+    - name: Extract silver searcher
+      command: chdir=${home}/packages /bin/tar xvf the_silver_searcher-0.15.tar.gz creates=${home}/packages/the_silver_searcher-0.15
+      tags:
+        - ag
+
+    - name: Run build script for silver searcher
+      command: chdir=${home}/packages/the_silver_searcher-0.15 ./build.sh creates=${home}/packages/the_silver_searcher-0.15/Makefile
+      tags:
+        - ag
+
+- hosts: webservers
+  connection: ssh
+  user: '{{ user }}'
+  sudo: yes
+  tasks:
+    - name: Make silver searcher
+      command: chdir=${home}/packages/the_silver_searcher-0.15 make install creates=/usr/local/bin/ag
+      tags:
+        - ag
+
+    # only needed until newer vim appears in ubuntu repos
+    - name: Add vim ppa
+      apt_repository: repo=ppa:nmi/vim-snapshots
+
+    - name: Install latest vim
+      apt: pkg=$item state=latest install_recommends=no
+      with_items:
+        - vim-gnome
+
+    # only needed until newer tmux appears in ubuntu repos
+    - name: Download tmux 1.8-3
+      get_url: url=https://launchpad.net/ubuntu/+archive/primary/+files/tmux_1.8-3_amd64.deb dest=/var/cache/apt/archives/tmux_1.8-3_amd64.deb
+
+    - name: Install tmux 1.8-3
+      command: dpkg -i tmux_1.8-3_amd64.deb chdir=/var/cache/apt/archives

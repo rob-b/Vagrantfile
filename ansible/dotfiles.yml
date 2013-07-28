@@ -1,6 +1,7 @@
 ---
 - hosts: webservers
   connection: ssh
+  user: '{{ user }}'
   sudo: yes
   tasks:
     - name: Set correct permisssions
@@ -14,4 +15,4 @@
       git: repo=https://rob_b@bitbucket.org/rob_b/dotfiles.git dest=${home}/.dotfiles
 
     - name: Install dotfiles
-      command: ${home}/.dotfiles/install-links.sh creates=${home}/.config/python/pythonrc.py
+      command: make all chdir=${home}/.dotfiles creates=${home}/.config/python/pythonrc.py

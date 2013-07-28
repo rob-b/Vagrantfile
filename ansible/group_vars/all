@@ -11,5 +11,6 @@ bin: /home/ubuntu/.virtualenvs/eighteen/bin
 virtualenv_path: /home/ubuntu/.virtualenvs/eighteen
 
 database_name: eighteen
+database_user: eighteen
 
 initial_user: ubuntu

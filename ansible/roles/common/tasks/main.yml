@@ -9,12 +9,14 @@
 - include: users.yml
 
 - name: Install essentials
-  apt: pkg=$item state=latest install_recommends=no
+  apt: pkg=$item state=latest install_recommends=no update_cache=yes cache_valid_time=3600
   with_items:
     - git
     - git-flow
-    - vim
     - python-pip
     - python-dev
     - htop
     - build-essential
+    - cmake
+    - python-apt
+    - zsh

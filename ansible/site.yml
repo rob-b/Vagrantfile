@@ -7,4 +7,5 @@
 
 - include: dotfiles.yml
 - include: webservers.yml
+- include: sourcebuilds.yml
 # - include: dbservers.yml
