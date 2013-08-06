@@ -12,6 +12,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision :ansible do |ansible|
     ansible.playbook = "ansible/vagrant.yml"
     ansible.inventory_file = "ansible/hosts"
-    ansible.verbose = true
+    ansible.verbose = false
   end
 end
