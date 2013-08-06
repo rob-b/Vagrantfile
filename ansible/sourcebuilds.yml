@@ -1,5 +1,6 @@
 - hosts: webservers
   connection: ssh
+  sudo: yes
   user: '{{ user }}'
   tasks:
     - file: path=${home}/packages state=directory owner=${user} group=${group} mode=755
