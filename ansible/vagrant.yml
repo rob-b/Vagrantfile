@@ -23,7 +23,8 @@
 
   - name: Add our key to vagrant's authorized_key file
     action: authorized_key user=vagrant key='$FILE(id_rsa.pub)'
-  - action: authorized_key user=$user key='$FILE(id_rsa.pub)'
+  - name: Add our key to user's authorized_key file
+    action: authorized_key user=$user key='$FILE(id_rsa.pub)'
 
 # now call the actual, non-hacky playbooks
 - include: site.yml
