@@ -4,13 +4,12 @@
   user: '{{ user }}'
   sudo: yes
   tasks:
-    - name: Install essentials
+    - name: Install dotfile essentials
       apt: pkg=$item state=latest install_recommends=no update_cache=yes cache_valid_time=3600
       with_items:
         - cmake
         - python-apt
         - exuberant-ctags
-        - zsh
         - git-flow
         - htop
     - name: Set correct permisssions
